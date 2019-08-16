@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 
 import {View, StyleSheet, Image, TextInput, TouchableOpacity, Text} from 'react-native';
 
-import Logo from '../assets/logo.png';
+import api from '../services/api'
+
+import logo from '../assets/logo.png';
+
+
 
 
 /* a react-native-handle-gesture precisa de mais uma configuração*/
@@ -10,14 +14,17 @@ import Logo from '../assets/logo.png';
 export default function Login({navigation}){
     const [user,setUser] = useState('');
 
-    function handleLogin(){
-        console.log(user);
-        navigation.navigate('Main');
+    async function handleLogin(){
+        const response = await api.post('/devs', {username: user});
+        const{ _id } = response.data;
+
+        console.log(_id)
+        navigation.navigate('Main', {_id});
     }
 
     return(
     <View style = {styles.container}>
-        <Image source ={Logo}/>
+        <Image source ={logo}/>
         <TextInput 
         autoCapitalize="none"
         autoCorrect={false}
