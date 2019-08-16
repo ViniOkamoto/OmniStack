@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-
+import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage'
 import {View, StyleSheet, Image, TextInput, TouchableOpacity, Text} from 'react-native';
 
 import api from '../services/api'
@@ -10,14 +10,33 @@ import logo from '../assets/logo.png';
 
 
 /* a react-native-handle-gesture precisa de mais uma configuração*/
-
+/* após feita a comunicação com a api, instalamos yarn add @react-native-community/async-storage
+    que se trata de uma ferramenta a que a atualização da página mobile, não
+    faça o usuário voltar a página login, feito isso necessário a 
+    reintação da biblioteca */
 export default function Login({navigation}){
     const [user,setUser] = useState('');
-
+/* o useEffect é um disparador de funcionalidade assim que um componente é 
+exibido em tela um uma informação muda.
+    os [] é quando x variaveis mudarem ele executara novamente, mas no caso 
+    ele só sera executado uma vez */
+    useEffect(()=> {
+        AsyncStorage.getItem('user').then(user => {
+            if(user){
+                /* se obtiver algum resutado em user, se tiver ele resultara 
+                a tela main, assim que o usuário loga ficara salvo dentro do 
+                asycnstorage o user e o id se ele atualizar a página, o asyncstorage
+                será executado, e jogara ele para tela de main novamente  */
+                navigation.navigate('Main', { user })
+            }
+        })
+    }, []);
     async function handleLogin(){
         const response = await api.post('/devs', {username: user});
         const{ _id } = response.data;
-
+        /* assim feito o login sera setado dentro do asyncstorage o valor user e
+        valor da informação como segundo parâmetro */
+        await AsyncStorage.setItem('user', _id);
         console.log(_id)
         navigation.navigate('Main', {_id});
     }
