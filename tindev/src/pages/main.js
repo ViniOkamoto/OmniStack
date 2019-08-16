@@ -1,9 +1,20 @@
 import React from 'react';
 
-import {View} from 'react-native';
+import logo from '../assets/logo.png'
+import { SafeAreaView, View, Image, StyleSheet } from 'react-native';
 
-export default function Main(){
+export default function Main() {
     return (
-        <View/>
+        <SafeAreaView sytle={styles.container}>
+            <Image source={logo} />
+        </SafeAreaView>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+        alignItems: 'center',
+    }
+})
