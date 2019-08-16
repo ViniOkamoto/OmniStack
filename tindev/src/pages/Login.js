@@ -38,7 +38,7 @@ exibido em tela um uma informação muda.
         valor da informação como segundo parâmetro */
         await AsyncStorage.setItem('user', _id);
         console.log(_id)
-        navigation.navigate('Main', {_id});
+        navigation.navigate('Main', {user: _id});
     }
 
     return(
