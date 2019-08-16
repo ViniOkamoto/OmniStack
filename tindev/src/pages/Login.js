@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {View, StyleSheet, Image, TextInput, TouchableOpacity, Text} from 'react-native'
-import logo from '../assets/logo.png'
+
+import Logo from '../assets/logo.png'
 
 
 /* a react-native-handle-gesture precisa de mais uma configuração*/
@@ -9,7 +10,7 @@ import logo from '../assets/logo.png'
 export default function Login(){
     return(
     <View style = {styles.container}>
-        <Image source ={logo}/>
+        <Image source ={Logo}/>
         <TextInput 
         placeholder='Digite seu usuário no Github'
         placeholderTextColor='#999'
@@ -61,7 +62,6 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
         fontSize: 16,
-        alignItems: 'center'
     }
 
 })
