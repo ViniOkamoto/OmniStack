@@ -1,22 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import {View, StyleSheet, Image, TextInput, TouchableOpacity, Text} from 'react-native'
+import {View, StyleSheet, Image, TextInput, TouchableOpacity, Text} from 'react-native';
 
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo.png';
 
 
 /* a react-native-handle-gesture precisa de mais uma configuração*/
 
-export default function Login(){
+export default function Login({navigation}){
+    const [user,setUser] = useState('');
+
+    function handleLogin(){
+        console.log(user);
+        navigation.navigate('Main');
+    }
+
     return(
     <View style = {styles.container}>
         <Image source ={Logo}/>
         <TextInput 
+        autoCapitalize="none"
+        autoCorrect={false}
         placeholder='Digite seu usuário no Github'
         placeholderTextColor='#999'
         style={styles.input}
+        value ={user}
+        onChangeText = {setUser}
         />
-    <TouchableOpacity style ={styles.button}>
+    <TouchableOpacity onPress={handleLogin} style ={styles.button}>
         <Text style ={styles.buttonText}>Enviar</Text>
     </TouchableOpacity>
     </View>
